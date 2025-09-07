@@ -1,0 +1,119 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Global liquid-glass theme */
+:root {
+  --glass-bg: rgba(255, 255, 255, 0.06);
+  --glass-border: rgba(255, 255, 255, 0.18);
+  --glass-highlight: rgba(255, 255, 255, 0.35);
+  --ink-900: #0b1324;
+  --ink-700: #1b2a4a;
+  --ink-500: #2e446f;
+  --accent-500: #5bd5ff;
+  --accent-600: #36c6ff;
+  --accent-700: #14b5ff;
+  --success-500: #22c55e;
+  --warning-500: #f59e0b;
+  --danger-500: #ef4444;
+}
+
+html, body, #root {
+  height: 100%;
+}
+
+body {
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, Helvetica Neue, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+  color: #e6f2ff;
+  background: radial-gradient(1200px 1200px at 10% 10%, rgba(91, 213, 255, 0.15), transparent 60%),
+              radial-gradient(1000px 1000px at 90% 20%, rgba(98, 102, 241, 0.16), transparent 60%),
+              radial-gradient(900px 900px at 20% 80%, rgba(0, 212, 255, 0.12), transparent 60%),
+              linear-gradient(180deg, #07101f 0%, #0b1528 50%, #0a1a31 100%);
+  background-attachment: fixed;
+}
+
+/* Glass surface */
+.glass {
+  background: var(--glass-bg);
+  backdrop-filter: blur(18px) saturate(160%);
+  -webkit-backdrop-filter: blur(18px) saturate(160%);
+  border: 1px solid var(--glass-border);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35), inset 0 1px 0 var(--glass-highlight);
+}
+
+.glass-strong {
+  background: rgba(15, 23, 42, 0.45);
+  backdrop-filter: blur(26px) saturate(180%);
+  -webkit-backdrop-filter: blur(26px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  box-shadow: 0 14px 50px rgba(0, 0, 0, 0.55), inset 0 1px 0 rgba(255, 255, 255, 0.45);
+}
+
+/* Neon accents */
+.glow {
+  box-shadow: 0 0 0 0 rgba(91, 213, 255, 0);
+  transition: box-shadow 300ms ease;
+}
+
+.glow:hover, .glow:focus {
+  box-shadow: 0 0 0 4px rgba(91, 213, 255, 0.15), 0 10px 30px rgba(20, 181, 255, 0.25);
+}
+
+/* Buttons */
+.btn-primary {
+  background: linear-gradient(180deg, var(--accent-600), var(--accent-700));
+  color: white;
+}
+.btn-primary:hover {
+  background: linear-gradient(180deg, var(--accent-700), var(--accent-700));
+}
+.btn-ghost {
+  background: rgba(255, 255, 255, 0.06);
+  color: #e6f2ff;
+}
+.btn-ghost:hover {
+  background: rgba(255, 255, 255, 0.12);
+}
+
+/* Glass progress track */
+.track-glass {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.18), rgba(255, 255, 255, 0.06));
+}
+.bar-gradient {
+  background: linear-gradient(90deg, var(--accent-600), #8b5cf6);
+}
+
+/* Borders and text tints on dark */
+.ink-900 { color: #e7f2ff; }
+.ink-700 { color: #c8d9ff; }
+.ink-500 { color: #a6b8dd; }
+
+/* Inputs */
+.input-glass {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  color: #0b1324;
+}
+.input-glass::placeholder {
+  color: rgba(11, 19, 36, 0.6);
+}
+.input-glass:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(91, 213, 255, 0.2);
+  border-color: rgba(91, 213, 255, 0.4);
+}
+
+/* Better contrast inputs for dark theme */
+.input-dark {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  color: #0b1324;
+}
+.input-dark::placeholder {
+  color: rgba(11, 19, 36, 0.6);
+}
+.input-dark:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(91, 213, 255, 0.2);
+  border-color: rgba(91, 213, 255, 0.4);
+}

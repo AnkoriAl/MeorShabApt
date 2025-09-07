@@ -9,6 +9,7 @@ interface AuthContextType {
   signup: (email: string, password: string, preferredName: string) => Promise<boolean>;
   logout: () => void;
   isLoading: boolean;
+  updatePreferredName: (preferredName: string) => Promise<void>;
 }
 
 const AuthContext = createContext<AuthContextType | null>(null);
@@ -57,7 +58,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
                 email: session.user.email || '',
                 role: 'participant',
                 status: 'active',
-                preferredName: (session.user.email || 'user').split('@')[0]
+                preferredName: 'User'
               });
               user = await supabaseDataService.getUserById(session.user.id);
             } catch (e) {
@@ -68,7 +69,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
                 role: 'participant',
                 createdAt: new Date(),
                 status: 'active',
-                preferredName: (session.user.email || 'user').split('@')[0]
+                preferredName: 'User'
               } as any;
             }
           }
@@ -98,7 +99,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
           role: 'participant',
           createdAt: new Date(),
           status: 'active',
-          preferredName: (session.user.email || 'user').split('@')[0]
+          preferredName: 'User'
         };
         setCurrentUser(ephemeralUser);
         setIsLoading(false);
@@ -125,7 +126,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
               email: session.user.email || '',
               role: 'participant',
               status: 'active',
-              preferredName: (session.user.email || 'user').split('@')[0]
+              preferredName: 'User'
             });
             const dbUser = await supabaseDataService.getUserById(session.user.id);
             if (dbUser) setCurrentUser(dbUser);
@@ -177,7 +178,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
           role: 'participant',
           createdAt: new Date(),
           status: 'active',
-          preferredName: (data.user.email || email).split('@')[0]
+          preferredName: 'User'
         };
         setCurrentUser(baseUser);
         setIsLoading(false);
@@ -204,7 +205,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
               email: baseUser.email,
               role: baseUser.role,
               status: baseUser.status,
-              preferredName: baseUser.preferredName
+              preferredName: 'User'
             });
             const refreshed = await supabaseDataService.getUserById(baseUser.id);
             if (refreshed) setCurrentUser(refreshed);
@@ -299,12 +300,24 @@ export function AuthProvider({ children }: AuthProviderProps) {
     }
   };
 
+  const updatePreferredName = async (preferredName: string) => {
+    if (!currentUser) return;
+    try {
+      const updated = await supabaseDataService.updateUser(currentUser.id, { preferredName });
+      setCurrentUser(updated);
+    } catch (error) {
+      console.error('Failed to update preferred name:', error);
+      throw error;
+    }
+  };
+
   const value = {
     currentUser,
     login,
     signup,
     logout,
-    isLoading
+    isLoading,
+    updatePreferredName
   };
 
   if (error) {
